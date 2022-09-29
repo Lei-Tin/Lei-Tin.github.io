@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!-- This whole page is kinda stupid but quite fun to implement-->
+
+<html lang="en">
+    <head>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <title>NULL #404#</title>
+
+    </head>
+    <body>
+        <div>
+            <a href="index.html">./index.html</a>
+
+            <p>The page you're trying to access doesn't exist, press the button below to retry</p>
+        </div>
+
+        <div>
+            <button id = "Press">Button</button>
+        </div>
+
+        <script>
+            // Initiallizing all the JavaScript madness
+            let counter = 0;
+
+            let input = 0;
+
+            let selector = 0;
+
+            let currentInput = 0;
+
+
+            // This is the event listener of keypresses, which is acquired from MDN Web Docs https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
+            document.addEventListener('keypress', function whenClick(event) {
+                if (event.keyCode == 48) {
+                    if (currentInput == 0)
+                    {
+                        currentInput += 48;
+                    }
+
+                    else
+                    {
+                        currentInput = 0;
+                    }
+                }
+
+                else if (event.keyCode == 57)
+                {
+                    if (currentInput == 48)
+                    {
+                        currentInput += 57;
+                    }
+
+                    else
+                    {
+                        currentInput = 0;
+                    }
+                }
+
+                else if (event.keyCode == 50)
+                {
+                    if (currentInput == 105)
+                    {
+                        currentInput += 50;
+                    }
+
+                    else
+                    {
+                        currentInput = 0;
+                    }
+                }
+
+                else if (event.keyCode == 55)
+                {
+                    if (currentInput == 155)
+                    {
+                        currentInput += 55;
+                        document.removeEventListener('keypress', whenClick)
+                        alert("Congratulations! You figured out my birthday :3")
+                        alert("See you next time!")
+                        window.location.href = "https://www.google.com/search?q=CS50+Memes&tbm=isch";
+                    }
+
+                    else
+                    {
+                        currentInput = 0;
+                    }
+                }
+
+                else
+                {
+                    currentInput = 0;
+                }
+
+            });
+
+            // This is the interactive button, if you press it, it tells you what to do
+            document.querySelector("#Press").onclick = function () {
+                counter++;
+
+                if (counter == 10)
+                {
+                    alert("Actually try highlighting everything");
+                }
+
+                if (counter == 20)
+                {
+                    alert("Why not try typing in the passcode you found, starting from 0");
+                }
+
+            }
+
+            function changePassword()
+            {
+
+                if (selector == 4)
+                {
+                    selector = 0;
+                }
+
+                let passcode = ["0", "9", "2", "7"];
+
+                document.querySelector("#passcode").innerHTML = passcode[selector];
+
+                selector++;
+
+            }
+
+            // Change password display every 2000 ms
+            window.setInterval(changePassword, 2000);
+
+            let currDisplay = "";
+            let currDisplay2 = "";
+            let oSelector = 0;
+
+            function ooo()
+            {
+                if (oSelector == 0)
+                {
+                    currDisplay += "o";
+                    currDisplay2 += "O";
+                    oSelector = 1;
+                }
+                else
+                {
+                    currDisplay += "O";
+                    currDisplay2 += "o";
+                    oSelector = 0;
+                }
+
+                document.querySelector("#ooooo").innerHTML = currDisplay;
+                document.querySelector("#OOOOO").innerHTML = currDisplay2;
+                document.querySelector("#oOoOo").innerHTML = currDisplay;
+
+                    if (currDisplay.length == 10)
+                    {
+                        currDisplay = "";
+                        currDisplay2 = "";
+                    }
+
+            }
+
+            // Autorun this function called "ooo", which adds OoOoOoOoO to the page
+            window.setInterval(ooo, 500)
+
+        </script>
+
+        <!-- This is for the passcode detection that sends you ultimately to google -->
+        <div id = "display" style = "font-size: 36pt; text-align: center">
+
+        </div>
+
+        <div id = "passcode" style = "font-size: 72pt; text-align: center; color: white">
+            0
+        </div>
+
+
+        <!-- I don't even know what I'm doing here, but these are the bubblish animation -->
+        <div id = "ooooo" style = "font-size: 48pt; text-align: center">
+        </div>
+
+        <div id = "OOOOO" style = "font-size: 48pt; text-align: center">
+        </div>
+
+        <div id = "oOoOo" style = "font-size: 48pt; text-align: center">
+
+        </div>
+
+    </body>
+</html>
