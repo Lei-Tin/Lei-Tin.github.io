@@ -1,14 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,800;1,100;1,300;1,400;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Simplified+Chinese");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans");
 
 :root {
-  --gray-1: #3f3f3f;
-  --gray-2: #32353a;
-  --gray-3: #25282c;
-  --gray-4: #151618;
-  --gray-5: #151618;
-  --gray-6: #111111;
-  --white-1: #eeeeee;
-  --white-2: #a9abb3;
 }
 * {
   font-family: inherit;
@@ -24,11 +17,10 @@
 }
 html,
 body {
-  color: var(--white-2);
-  background-color: var(--gray-6);
-  font-family: "JetBrains Mono", monospace;
+  color: var(--brown-3);
+  font-family: "Noto Sans", "Noto Sans Simplified Chinese", monospace;
   line-height: 2rem;
-  background-color: var(--gray-5);
+  background-color: var(--yellow-1);
 }
 header {
   padding: 2rem 0 4rem 0;
@@ -37,7 +29,7 @@ header .site-title {
   font-size: 4rem;
   font-weight: bolder;
   line-height: 110%;
-  color: var(--white-1);
+  color: var(--brown-3);
 }
 main {
   margin: 0 auto;
@@ -64,14 +56,13 @@ main {
   font-weight: 300;
 }
 #text-wrapper a {
-  color: cyan;
-  border-bottom: 1px solid cyan;
+  color: var(--yellow-2);
+  border-bottom: 1px solid var(--yellow-2);
 }
 #social-wrapper {
   margin-top: 1rem;
 }
 #social-wrapper img {
-  filter: invert() !important;
   width: 25px;
   height: 25px;
   margin: 0 0 0.3rem 0;
@@ -90,13 +81,13 @@ main {
 }
 .articles .article {
   padding: 2rem;
-  background: var(--gray-3);
+  background: var(--brown-1);
   border-radius: 15px;
   transition: all 0.2s ease-in-out;
 }
 .articles .article .article-title,
 .articles .article .article-title a {
-  color: var(--white-2);
+  color: var(--yellow-1);
   font-weight: 100;
   font-style: italic;
   font-size: 1.4rem;
@@ -107,6 +98,7 @@ main {
 }
 .articles .article .date {
   display: block;
+  color: var(--yellow-1);
   font-size: 0.8rem;
 }
 .articles .article .categories {
@@ -118,8 +110,8 @@ main {
 .articles .article .categories .category {
   margin: 0 0.5rem 0.3rem 0;
   display: block;
-  color: var(--gray-4);
-  background: var(--white-2);
+  color: var(--brown-3);
+  background: var(--yellow-1);
   border-radius: 15px;
   font-size: 0.7rem;
   padding: 0 0.8rem;

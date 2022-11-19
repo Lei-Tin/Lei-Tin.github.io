@@ -8,3 +8,5 @@ categories: ["Test Post"]
 # My first website!
 
 Hello world!
+
+![Dummy Image 1](https://picsum.photos/1366/768)
