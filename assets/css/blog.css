@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Simplified+Chinese");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Japanese");
 
 :root {
 }
@@ -18,7 +19,7 @@
 html,
 body {
   color: var(--brown-3);
-  font-family: "Noto Sans", "Noto Sans Simplified Chinese", monospace;
+  font-family: "Noto Sans", "Noto Sans Simplified Chinese", "Noto Sans Japanese", monospace;
   line-height: 2rem;
   background-color: var(--yellow-1);
 }
