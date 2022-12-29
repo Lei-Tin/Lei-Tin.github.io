@@ -71,7 +71,7 @@ main {
   margin-top: 1rem;
 }
 #social-wrapper img {
-  filter: invert() !important;
+  filter: invert();
   width: 25px;
   height: 25px;
   margin: 0 0 0.3rem 0;
