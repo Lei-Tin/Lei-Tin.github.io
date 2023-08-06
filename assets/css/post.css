@@ -25,10 +25,9 @@
 html,
 body {
   color: var(--white-2);
-  background-color: var(--gray-6);
+  /* background-color: var(--gray-6); */
   font-family: "JetBrains Mono", monospace;
   line-height: 2rem;
-  background-color: var(--gray-5);
 }
 .content a {
   color: cyan;
@@ -53,7 +52,11 @@ main {
 }
 
 .article-header {
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  background: var(--gray-3);
+  opacity: 0.9;
+  border-radius: 15px;
 }
 .article-title {
   font-size: 2.4rem;
@@ -84,6 +87,12 @@ main {
 }
 
 /* markdown content */
+.content {
+  padding: 2rem;
+  background: var(--gray-3);
+  opacity: 0.9;
+  border-radius: 15px;
+}
 
 .content * {
   line-height: 180%;
@@ -119,7 +128,7 @@ main {
   margin: 1.75rem 0;
 }
 .content blockquote {
-  padding-left: 1.42188rem;
+  padding-left: 1.4rem;
   margin-bottom: 1.75rem;
   font-style: italic;
   font-weight: 100;
