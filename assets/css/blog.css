@@ -24,13 +24,15 @@
 }
 html,
 body {
+  background: var(--gray-4);
   color: var(--white-2);
-  /* background-color: var(--gray-6); */
   font-family: "JetBrains Mono", monospace;
   line-height: 2rem;
 }
 header {
+  position: relative;
   padding: 2rem 0 4rem 0;
+  z-index: 2;
 }
 header .site-title {
   font-size: 4rem;
@@ -47,9 +49,11 @@ main {
 /* header */
 
 #bio {
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  z-index: 2;
 }
 #img-wrapper img {
   border-radius: 50%;

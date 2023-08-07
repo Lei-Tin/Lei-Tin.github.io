@@ -24,8 +24,8 @@
 }
 html,
 body {
+  background: var(--gray-4);
   color: var(--white-2);
-  /* background-color: var(--gray-6); */
   font-family: "JetBrains Mono", monospace;
   line-height: 2rem;
 }
@@ -34,7 +34,9 @@ body {
   border-bottom: 1px solid cyan;
 }
 header {
+  position: relative;
   padding: 2rem 0 4rem 0;
+  z-index: 2;
 }
 .site-title {
   font-size: 1.4rem;
