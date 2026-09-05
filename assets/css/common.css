@@ -28,6 +28,13 @@
   animation: fade forwards ease-out, fall linear infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .drop {
+    animation: none;
+    display: none;
+  }
+}
+
 .footer {
   position: relative;
   z-index: 2;

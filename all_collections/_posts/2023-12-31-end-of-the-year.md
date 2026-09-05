@@ -3,6 +3,7 @@ layout: post
 title: Woo, and it's the end of the year again
 date: 2023-12-31
 categories: ["Blog"]
+tags: ["Looking back", "Little things"]
 ---
 
 # Well, seems like I have forgottten about the existence of this blog? 

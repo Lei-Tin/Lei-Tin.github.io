@@ -2,18 +2,17 @@ name: Ray Hung
 dp: https://avatars.githubusercontent.com/u/8016180?s=400&u=d6e791b130666846b1289420071b587534d3636d&v=4
 description: "
   <p>
-    Welcome to my blog! I will update this blog whenever I feel like it. 
+    Random thoughts, little life updates, and things I felt like saying.
   </p>
   <p>
-    The contents here may or may not be boring, depending on your taste, but thank you for paying a visit! 
+    Sometimes a sentence, sometimes a whole ramble. Updated whenever I feel like it :3
   </p>
 "
 contact:
-  - title: linkedin
-    url: https://www.linkedin.com/in/shouyihung/
+  - title: twitter
+    label: X (Twitter)
+    icon: twitter.svg
+    url: https://twitter.com/HLeiTR
   - title: github
+    label: GitHub
     url: https://github.com/Lei-Tin
-  - title: email
-    url: mailto:xxleitinxx@gmail.com
-  - title: leetcode
-    url: https://leetcode.com/hleitr/

@@ -12,9 +12,11 @@
   <link rel="stylesheet" href="{{site.baseurl}}/assets/css/blog.css" />
   {%endif%}
   <link rel="stylesheet" href="{{site.baseurl}}/assets/css/common.css" />
-  <script src="{{site.baseurl}}/assets/js/categories.js"></script>
   {% if page.layout == "post" %}
+  <script src="{{site.baseurl}}/assets/js/categories.js"></script>
   <script defer src="{{site.baseurl}}/assets/js/lbox.js"></script>
+  {% elsif page.layout == "blog" %}
+  <script defer src="{{site.baseurl}}/assets/js/blog.js"></script>
   {% endif %}
 
   <!-- Rainy background -->
