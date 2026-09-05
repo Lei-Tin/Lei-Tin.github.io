@@ -16,3 +16,7 @@ contact:
   - title: github
     label: GitHub
     url: https://github.com/Lei-Tin
+  - title: steam
+    label: Steam
+    icon: steam.svg
+    url: https://steamcommunity.com/id/Lei_Tin
