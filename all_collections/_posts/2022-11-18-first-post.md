@@ -3,7 +3,7 @@ layout: post
 title: First ever post on this website!
 date: 2022-11-18
 categories: ["Blog"]
-tags: ["Daily life", "Little things"]
+tags: ["Daily life", "Little things", "English"]
 ---
 
 # First blog post!

@@ -17,7 +17,7 @@ Create `all_collections/_posts/YYYY-MM-DD-your-title.md` and write the entry in 
 layout: post
 title: A little weekend update
 date: 2026-09-05
-tags: ["Daily life", "Little things"]
+tags: ["Daily life", "Little things", "English"]
 ---
 
 Your entry goes here.
@@ -27,7 +27,21 @@ Your entry goes here.
 
 Add your own image file at the path used in the Markdown. Reuse an existing tag or add a new one; the homepage generates its tag filters, counts, and collapsible year groups from the posts automatically. Dates control the newest/oldest sorting. Future-dated entries appear once their date is reached and the site is rebuilt.
 
+Use `English` for entries written in English and `中文` for entries written in Chinese. For a substantially bilingual entry, add both. Language tags work with the same homepage filters as topic tags.
+
 Preview locally with `bundle exec jekyll serve`.
+
+## Entry images
+
+Store web-sized copies in `assets/images/entries/`. Keep original photos and commission master files in your own backup, outside Git. The current entry images use WebP, with embedded metadata removed; keep artwork uncropped and credit the artist in the entry.
+
+For Markdown images, optional Kramdown attributes preserve the image's aspect ratio and defer off-screen downloads:
+
+```markdown
+![Describe the image]({{ "/assets/images/entries/example.webp" | relative_url }}){: loading="lazy" decoding="async" width="1200" height="900"}
+```
+
+At the current size, storing these optimized copies alongside posts is simple and portable. If the collection grows substantially, Cloudflare R2 with a custom image domain is a suitable alternative: upload the images there and use their HTTPS URLs in the same Markdown. R2 has storage and request quotas, so check current pricing before enabling it. Its `r2.dev` URL is intended for development rather than production. No external image service is configured yet.
 
 ## Motion
 

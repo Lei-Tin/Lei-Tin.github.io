@@ -3,7 +3,7 @@ layout: post
 title: Studied till 3 AM in the Morning
 date: 2022-11-19
 categories: ["Blog"]
-tags: ["Daily life"]
+tags: ["Daily life", "English"]
 ---
 
 # Hey!
