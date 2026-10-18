@@ -2,6 +2,8 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const duration = 420;
   const easing = "cubic-bezier(0.4, 0, 0.2, 1)";
+  const fadeEasing = "cubic-bezier(0.22, 1, 0.36, 1)";
+  const fadeSelectors = "main > header, #bio, .blog-controls, .year-group > summary, .articles .article, .article-header, .article > .content, .footer";
   const partSelectors = [".article-title", ".date", ".categories"];
   const textProperties = ["fontFamily", "fontSize", "fontWeight", "fontStyle", "lineHeight", "letterSpacing", "color"];
   let routeIndex = 0;
@@ -10,6 +12,40 @@
   let motion = null;
   let outgoingContent = null;
   let articleStyles = null;
+  let enteringMain = null;
+  const pageFades = new Set();
+
+  function finishPageFades() {
+    enteringMain = null;
+    document.documentElement.classList.remove("route-rendering");
+    pageFades.forEach(animation => animation.cancel());
+    pageFades.clear();
+  }
+
+  function revealPage() {
+    if (!enteringMain) return;
+    // Scroll restoration and archive filtering have settled by turbo:load.
+    // Install the first animation frame before lifting the rendering guard.
+    if (!reducedMotion.matches) {
+      let index = 0;
+      enteringMain.querySelectorAll(fadeSelectors).forEach(element => {
+        if (element === motion?.target) return;
+        const rect = element.getBoundingClientRect();
+        if (!rect.width || !rect.height || rect.bottom <= 0 || rect.top >= innerHeight) return;
+        const animation = element.animate([
+          { opacity: 0, translate: "0px 10px" },
+          { opacity: getComputedStyle(element).opacity, translate: "0px 0px" }
+        ], { duration: 260, delay: Math.min(index++ * 20, 80), easing: fadeEasing, fill: "both" });
+        pageFades.add(animation);
+        animation.finished.then(() => {}, () => {}).then(() => {
+          pageFades.delete(animation);
+          animation.cancel();
+        });
+      });
+    }
+    enteringMain = null;
+    document.documentElement.classList.remove("route-rendering");
+  }
 
   function capture(element, parent) {
     const rect = element.getBoundingClientRect();
@@ -73,7 +109,7 @@
     return host;
   }
 
-  function finishMotion() {
+  function finishCardMotion() {
     outgoingContent = null;
     if (!motion) return;
     const previous = motion;
@@ -83,6 +119,11 @@
     previous.shell.remove();
     previous.exitContent?.remove();
     previous.animations.forEach(animation => animation.cancel());
+  }
+
+  function finishMotion() {
+    finishPageFades();
+    finishCardMotion();
   }
 
   function prepareMotion(target) {
@@ -107,12 +148,11 @@
       return element;
     });
     target.classList.add("route-morph-target");
-    const content = document.querySelector(".article > .content");
+    const content = target.closest("main").querySelector(".article > .content");
     const contentClip = content?.style.clipPath || "";
     if (content) content.style.clipPath = "inset(0 0 100% 0 round 15px)";
     document.body.appendChild(shell);
-    const exitContent = prepareOutgoingContent(outgoingContent);
-    motion = { shell, parts, target, content, contentClip, exitContent, animations: [] };
+    motion = { shell, parts, target, content, contentClip, exitContent: null, animations: [] };
   }
 
   document.addEventListener("turbo:before-visit", event => {
@@ -152,26 +192,39 @@
 
   document.addEventListener("turbo:before-render", event => {
     const render = event.detail.render;
-    event.detail.render = (currentBody, nextBody) => {
+    event.detail.render = async (currentBody, nextBody) => {
       const currentMain = currentBody.querySelector("main");
       const nextMain = nextBody.querySelector("main");
-      if (!currentMain || !nextMain) return render(currentBody, nextBody);
+      if (!currentMain || !nextMain) {
+        finishPageFades();
+        return render(currentBody, nextBody);
+      }
       // Clone cached content and keep the rain canvas connected throughout visits.
       const replacement = nextMain.cloneNode(true);
       replacement.querySelectorAll(".route-morph-target").forEach(element => element.classList.remove("route-morph-target"));
-      currentMain.replaceWith(replacement);
       const target = [...replacement.querySelectorAll("[data-post-url]")].find(card => card.dataset.postUrl === source?.url);
-      if (target && !reducedMotion.matches) prepareMotion(target);
+      if (!reducedMotion.matches) {
+        // Keep the shared card visible while guarding the page-style handoff.
+        if (target) prepareMotion(target);
+        document.documentElement.classList.add("route-rendering");
+      }
+      // Turbo clones the outgoing body on its next task; cache it before moving
+      // the real article content or replacing main. Only the detached copy has changed.
+      await new Promise(resolve => setTimeout(resolve, 0));
+      currentMain.replaceWith(replacement);
+      enteringMain = replacement;
+      if (motion) motion.exitContent = prepareOutgoingContent(outgoingContent);
     };
   });
 
   document.addEventListener("turbo:load", () => {
     // Turbo has now applied the destination styles and restored its scroll position.
+    revealPage();
     if (!motion) { source = null; outgoingContent = null; return; }
     if (reducedMotion.matches) { finishMotion(); source = null; return; }
     const current = motion;
     const destination = captureCard(current.target);
-    if (!destination) { finishMotion(); source = null; return; }
+    if (!destination) { finishCardMotion(); source = null; return; }
     const animate = (element, from, to) => current.animations.push(element.animate([from, to], { duration, easing, fill: "both" }));
     animate(current.shell, source.box, destination.box);
     current.parts.forEach((part, index) => animate(part,
@@ -187,7 +240,7 @@
     source = null;
     outgoingContent = null;
     Promise.allSettled(current.animations.map(animation => animation.finished)).then(() => {
-      if (motion === current) finishMotion();
+      if (motion === current) finishCardMotion();
     });
   });
 

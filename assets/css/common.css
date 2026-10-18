@@ -13,6 +13,9 @@
   background: var(--white-2);
 }
 /* A single live card moves between the archive and article header. */
+html.route-rendering main {
+  visibility: hidden;
+}
 .route-morph-target {
   visibility: hidden;
 }
@@ -134,7 +137,7 @@ body::-webkit-scrollbar-track {
   opacity: 0.9;
 }
 #category-modal-content {
-  display: relative;
+  display: block;
   max-height: calc(100% - 5rem);
   overflow: auto;
 }
@@ -157,13 +160,23 @@ body::-webkit-scrollbar-track {
 .modal-article {
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
-  transition: all 0.2s ease-in-out;
+  transition: background-color 180ms ease-out;
 }
 .modal-article-date {
   font-size: 0.8rem;
 }
 .modal-article:hover {
   background: var(--gray-4);
+}
+.modal-article:focus-visible {
+  outline: 1px solid var(--white-2);
+  outline-offset: -1px;
+  border-radius: 0.35rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal-article {
+    transition: none;
+  }
 }
 
 hr {
