@@ -2,6 +2,7 @@
 <html lang="en">
   {% include head.html %}
   <body>
+    <div id="rain-container" aria-hidden="true"></div>
     <main>
       {% include header.html %} {% include bio.html %}
       <section class="blog-controls" aria-label="Browse entries" hidden>
@@ -29,7 +30,7 @@
           <summary><span class="year-title">{{ year.name }}</span><span class="year-count">{{ year.items | size }} entries</span></summary>
           <div class="year-articles">
         {% for post in year.items %}
-        <article class="article" data-date="{{ post.date | date: '%s' }}" data-tags="{{ post.tags | jsonify | escape }}">
+        <article class="article" data-post-url="{{ post.url | relative_url }}" data-date="{{ post.date | date: '%s' }}" data-tags="{{ post.tags | jsonify | escape }}">
           <h2 class="article-title">
             <a href="{{site.baseurl}}{{post.url}}"> {{post.title}} </a>
           </h2>

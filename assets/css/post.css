@@ -47,10 +47,16 @@ header {
   z-index: 2;
 }
 .site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.4rem;
   font-weight: bolder;
   line-height: 110%;
   color: var(--white-1);
+}
+.site-title .back-arrow {
+  font-weight: 400;
 }
 main {
   margin: 0 auto;
@@ -83,6 +89,7 @@ main {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  row-gap: 0.4rem;
 }
 .categories .category {
   margin: 0 0.5rem 0 0;

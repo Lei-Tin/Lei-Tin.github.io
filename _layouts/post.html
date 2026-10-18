@@ -2,22 +2,23 @@
 <html lang="en">
   {% include head.html %}
   <body>
+    <div id="rain-container" aria-hidden="true"></div>
     <main>
       {% include header.html %}
       <section class="article">
-        <div class="article-header">
+        <div class="article-header" data-post-url="{{ page.url | relative_url }}">
           <h2 class="article-title">{{page.title}}</h2>
           <small class="date">{{page.date | date_to_string}}</small>
-          <div class="categories">
-            {% for c in page.categories %}
-            <a href="#!" class="category">{{c}}</a>
+          <div class="categories" aria-label="Tags">
+            {% for tag in page.tags %}
+            <a href="#category-modal" class="category" data-tag="{{ tag | escape }}">{{ tag | escape }}</a>
             {% endfor %}
           </div>
         </div>
         <div class="content">{{content}}</div>
       </section>
       {% include footer.html %}
+      {% include category-modal.html %}
     </main>
-    {% include category-modal.html%}
   </body>
 </html>

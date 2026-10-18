@@ -3,23 +3,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#151618"/>
+  <meta name="turbo-cache-control" content="no-preview" />
   <title>{{site.title}} | {{page.title}}</title>
   <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
   {% if page.layout == "post" %}
-  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/post.css" />
-  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/syntax.css" />
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/post.css" data-turbo-track="dynamic" />
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/syntax.css" data-turbo-track="dynamic" />
   {% else %}
-  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/blog.css" />
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/blog.css" data-turbo-track="dynamic" />
   {%endif%}
   <link rel="stylesheet" href="{{site.baseurl}}/assets/css/common.css" />
-  {% if page.layout == "post" %}
-  <script src="{{site.baseurl}}/assets/js/categories.js"></script>
-  <script defer src="{{site.baseurl}}/assets/js/lbox.js"></script>
-  {% elsif page.layout == "blog" %}
+  <script defer src="{{site.baseurl}}/assets/js/vendor/turbo-8.0.23.js"></script>
+  <script defer src="{{site.baseurl}}/assets/js/navigation.js"></script>
   <script defer src="{{site.baseurl}}/assets/js/blog.js"></script>
-  {% endif %}
-
-  <!-- Rainy background -->
-  <div id="rain-container"></div>
-  <script src="{{site.baseurl}}/assets/js/rain.js"></script>
+  <script defer src="{{site.baseurl}}/assets/js/categories.js"></script>
+  <script defer src="{{site.baseurl}}/assets/js/lbox.js"></script>
+  <script defer src="{{site.baseurl}}/assets/js/rain.js"></script>
 </head>

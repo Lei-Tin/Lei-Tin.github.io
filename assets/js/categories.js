@@ -1,34 +1,61 @@
 ---
 ---
 
-const categories = { {% for category in site.categories %}{% capture category_name %}{{ category | first }}{% endcapture %}{{ category_name | replace: " ", "_" }}: [{% for post in site.categories[category_name] %}{ url: `{{ site.baseurl }}{{ post.url }}`, date: `{{post.date | date_to_string}}`, title: `{{post.title}}`},{% endfor %}],{% endfor %} }
+(() => {
+  const tags = {
+    {% for tag in site.tags %}
+    {{ tag[0] | jsonify }}: [
+      {% for post in tag[1] %}
+      { url: {{ site.baseurl | append: post.url | jsonify }}, date: {{ post.date | date_to_string | jsonify }}, title: {{ post.title | jsonify }} }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  };
+  let opener = null;
 
-console.log(categories)
+  function close(restoreFocus = true) {
+    document.getElementById("category-modal-bg")?.classList.remove("open");
+    document.getElementById("category-modal")?.classList.remove("open");
+    if (restoreFocus && opener?.isConnected) opener.focus();
+    opener = null;
+  }
 
-window.onload = function () {
-  document.querySelectorAll(".category").forEach((category) => {
-    category.addEventListener("click", function (e) {
-      const posts = categories[e.target.innerText.replace(" ","_")];
-      let html = ``
-      posts.forEach(post=>{
-        html += `
-        <a class="modal-article" href="${post.url}">
-          <h4>${post.title}</h4>
-          <small class="modal-article-date">${post.date}</small>
-        </a>
-        `
-      })
-      document.querySelector("#category-modal-title").innerText = e.target.innerText;
-      document.querySelector("#category-modal-content").innerHTML = html;
-      document.querySelector("#category-modal-bg").classList.toggle("open");
-      document.querySelector("#category-modal").classList.toggle("open");
+  document.addEventListener("click", event => {
+    if (!(event.target instanceof Element)) return;
+    if (event.target.id === "category-modal-bg") return close();
+    const link = event.target.closest(".category[data-tag]");
+    if (!link) return;
+    const background = document.getElementById("category-modal-bg");
+    const modal = document.getElementById("category-modal");
+    const title = document.getElementById("category-modal-title");
+    const content = document.getElementById("category-modal-content");
+    if (!background || !modal || !title || !content) return;
+    event.preventDefault();
+    opener = link;
+    title.textContent = link.dataset.tag;
+    const posts = tags[link.dataset.tag] || [];
+    const entries = document.createDocumentFragment();
+    posts.forEach(post => {
+      const article = document.createElement("a");
+      article.className = "modal-article";
+      article.href = post.url;
+      const heading = document.createElement("h4");
+      heading.textContent = post.title;
+      const date = document.createElement("small");
+      date.className = "modal-article-date";
+      date.textContent = post.date;
+      article.append(heading, date);
+      entries.appendChild(article);
     });
+    content.replaceChildren(entries);
+    background.classList.add("open");
+    modal.classList.add("open");
+    content.querySelector("a")?.focus();
   });
 
-  document.querySelector("#category-modal-bg").addEventListener("click", function(){
-    document.querySelector("#category-modal-title").innerText = "";
-    document.querySelector("#category-modal-content").innerHTML = "";
-    document.querySelector("#category-modal-bg").classList.toggle("open");
-    document.querySelector("#category-modal").classList.toggle("open");
-  })
-};
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") close();
+  });
+  document.addEventListener("turbo:before-cache", () => close(false));
+  document.addEventListener("turbo:before-render", () => close(false));
+})();

@@ -106,6 +106,9 @@ main {
   font-size: 1.4rem;
   line-height: 130%;
 }
+.articles .article .article-title a {
+  display: block;
+}
 .articles .article:hover {
   transform: translateY(-3px);
 }
