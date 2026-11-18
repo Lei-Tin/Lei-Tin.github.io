@@ -154,6 +154,10 @@ main {
 .content strong {
   font-weight: bold;
 }
+.content del,
+.content s {
+  text-decoration: line-through;
+}
 .content ul {
   margin-left: 1rem;
   margin-bottom: 1.75rem;
